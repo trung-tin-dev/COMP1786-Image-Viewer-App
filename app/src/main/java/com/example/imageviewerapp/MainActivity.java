@@ -15,9 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imgPhoto;
     private TextView imgInfo;
-    private Button btnPrevious;
-    private Button btnNext;
-
     private int currentIndex = 0;
 
     private final int[] images = {
@@ -40,34 +37,33 @@ public class MainActivity extends AppCompatActivity {
 
         imgPhoto = findViewById(R.id.imgPhoto);
         imgInfo = findViewById(R.id.imgInfo);
-        btnPrevious = findViewById(R.id.btnPrevious);
-        btnNext = findViewById(R.id.btnNext);
+
+        Button btnPrevious = findViewById(R.id.btnPrevious);
+        Button btnNext = findViewById(R.id.btnNext);
 
         updateImage();
 
         btnNext.setOnClickListener(v -> {
             currentIndex++;
-
             if (currentIndex >= images.length) {
                 currentIndex = 0;
             }
-
             updateImage();
         });
 
         btnPrevious.setOnClickListener(v -> {
             currentIndex--;
-
             if (currentIndex < 0) {
                 currentIndex = images.length - 1;
             }
-
             updateImage();
         });
     }
 
     private void updateImage() {
         imgPhoto.setImageResource(images[currentIndex]);
-        imgInfo.setText("Image " + (currentIndex + 1) + " of " + images.length);
+
+        String infoText = getString(R.string.image_info_format, currentIndex + 1, images.length);
+        imgInfo.setText(infoText);
     }
 }
